@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import type {
   Card,
   GameState,
-  GamePhase,
   PendingAction,
   ActionCardType,
 } from '@crossings/shared';

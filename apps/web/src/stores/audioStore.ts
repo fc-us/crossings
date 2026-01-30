@@ -19,7 +19,7 @@ interface AudioStore {
 
 export const useAudioStore = create<AudioStore>()(
   persist(
-    (set, get) => ({
+    (set, _get) => ({
       isMuted: false,
       masterVolume: 0.7,
       musicVolume: 0.5,

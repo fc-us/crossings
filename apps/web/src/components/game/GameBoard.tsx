@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useGameStore } from '@/stores/gameStore';
-import { useRoomStore, selectOtherPlayers, selectMyPlayer } from '@/stores/roomStore';
+import { useRoomStore } from '@/stores/roomStore';
 import { useSocket } from '@/hooks/useSocket';
 import CardHand from '@/components/cards/CardHand';
 import CardPile from '@/components/cards/CardPile';
@@ -19,8 +19,6 @@ export default function GameBoard({ roomCode }: GameBoardProps) {
   // Room state
   const room = useRoomStore((state) => state.room);
   const myPlayerId = useRoomStore((state) => state.myPlayerId);
-  const otherPlayers = useRoomStore(selectOtherPlayers);
-  const myPlayer = useRoomStore(selectMyPlayer);
 
   // Game state
   const gameState = useGameStore((state) => state.gameState);

@@ -85,7 +85,7 @@ function setupListeners(s: TypedSocket) {
     gameStore.getState().addToHand(card);
   });
 
-  s.on('game:turn_started', ({ playerId, playerName, timerEndsAt }) => {
+  s.on('game:turn_started', ({ timerEndsAt }) => {
     if (timerEndsAt) {
       const endsAt = new Date(timerEndsAt);
       const seconds = Math.floor((endsAt.getTime() - Date.now()) / 1000);
@@ -104,17 +104,17 @@ function setupListeners(s: TypedSocket) {
     }
   });
 
-  s.on('game:bridge_pass', ({ playerId, reason }) => {
+  s.on('game:bridge_pass', () => {
     // UI update handled by state
   });
 
-  s.on('game:turn_complete', ({ playerId, nextPlayerId }) => {
+  s.on('game:turn_complete', () => {
     gameStore.getState().setIsAnswering(false);
     gameStore.getState().setCurrentQuestion(null);
   });
 
   // Action card events
-  s.on('game:action_card_played', ({ playerId, actionType, card }) => {
+  s.on('game:action_card_played', ({ playerId, actionType }) => {
     gameStore.getState().setPendingAction({
       type: actionType,
       initiatorId: playerId,
@@ -131,7 +131,7 @@ function setupListeners(s: TypedSocket) {
     });
   });
 
-  s.on('game:referral_target', ({ targetPlayerId, targetPlayerName, card }) => {
+  s.on('game:referral_target', ({ targetPlayerId, card }) => {
     const myId = roomStore.getState().myPlayerId;
     gameStore.getState().setCurrentQuestion(card);
     gameStore.getState().setPendingAction({
@@ -146,7 +146,7 @@ function setupListeners(s: TypedSocket) {
     }
   });
 
-  s.on('game:translator_target', ({ targetPlayerId, targetPlayerName }) => {
+  s.on('game:translator_target', ({ targetPlayerId }) => {
     const myId = roomStore.getState().myPlayerId;
     gameStore.getState().setPendingAction({
       type: 'translator' as ActionCardType,
@@ -191,7 +191,7 @@ function setupListeners(s: TypedSocket) {
 export function getSocket(): TypedSocket {
   if (!socket) {
     const serverUrl =
-      import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+      (import.meta as { env?: { VITE_SERVER_URL?: string } }).env?.VITE_SERVER_URL || 'http://localhost:3001';
 
     socket = io(serverUrl, {
       autoConnect: false,

@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { motion, type HTMLMotionProps } from 'framer-motion';
+import type { ReactNode } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
   variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
@@ -53,7 +53,7 @@ export default function Button({
       disabled={disabled || isLoading}
       whileHover={!disabled && !isLoading ? { scale: 1.02 } : undefined}
       whileTap={!disabled && !isLoading ? { scale: 0.98 } : undefined}
-      {...props}
+      {...(props as object)}
     >
       {isLoading ? (
         <svg

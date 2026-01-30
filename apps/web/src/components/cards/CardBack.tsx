@@ -2,7 +2,7 @@ interface CardBackProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default function CardBack({ size = 'md' }: CardBackProps) {
+export default function CardBack({ size: _size = 'md' }: CardBackProps) {
   return (
     <div className="w-full h-full rounded-xl shadow-card overflow-hidden bg-navy-900 relative">
       {/* Outer border */}

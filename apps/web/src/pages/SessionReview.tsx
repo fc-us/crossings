@@ -5,7 +5,7 @@ import { SUIT_THEMES } from '@crossings/shared';
 import Button from '@/components/ui/Button';
 
 export default function SessionReview() {
-  const { sessionId } = useParams<{ sessionId: string }>();
+  const { sessionId: _sessionId } = useParams<{ sessionId: string }>();
   const session = useSessionStore((state) => state.session);
 
   // If no session data, show placeholder

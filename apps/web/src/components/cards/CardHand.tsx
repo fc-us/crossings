@@ -14,7 +14,7 @@ interface CardHandProps {
 export default function CardHand({
   cards,
   selectedCardId,
-  onSelectCard,
+  onSelectCard: _onSelectCard,
   onPlayCard,
   isMyTurn,
   canPlay,
